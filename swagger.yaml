@@ -1,0 +1,183 @@
+openapi: 3.0.0
+info:
+  title: AI Quizzer API
+  version: 1.0.0
+paths:
+  /api/v1/auth/register:
+    post:
+      tags: [Auth]
+      summary: Authenticate user\Register(It is Mock authentication so Give any email address and use token to Authorize )
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  /api/v1/quiz/generate:
+    post:
+      tags: [Quiz]
+      summary: Generate a new quiz
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                grade:
+                  type: integer
+                subject:
+                  type: string
+                totalQuestions:
+                  type: integer
+                maxScore:
+                  type: integer
+                difficulty:
+                  type: string
+                  enum: [EASY, MEDIUM, HARD]
+      responses:
+        '200':
+          description: Successfully generated quiz
+  /api/v1/quiz/submit:
+    post:
+      
+      tags: [Quiz]
+      summary: Submit quiz answers
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quizId:
+                  type: string
+                responses:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      questionId:
+                        type: string
+                      userResponse:
+                        type: string
+                
+      responses:
+        '200':
+          description: Successfully submitted quiz
+  /api/v1/quiz/{quizId}/getSubmissionOfQuiz:
+    get:
+    
+      tags: [Quiz]
+      summary: Get Previous Sumbission of specific quiz by Quiz ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: quizId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully generated retry quiz
+  
+  /api/v1/quiz/history:
+    get:
+      
+      tags: [Quiz]
+      summary: Get quiz history
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: grade
+          schema:
+            type: integer
+        - in: query
+          name: subject
+          schema:
+            type: string
+        - in: query
+          name: minScore
+          schema:
+            type: integer
+        - in: query
+          name: maxScore
+          schema:
+            type: integer
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Successfully retrieved quiz history
+  /api/v1/quiz/{quizId}/retry:
+    post:
+    
+      tags: [Quiz]
+      summary: Retry a quiz
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: quizId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully generated retry quiz
+  /api/v1/quiz/{quizId}/question/{questionId}/hint:
+    get:
+    
+      tags: [Quiz]
+      summary: Get hint for a question
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: quizId
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: questionId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved hint
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
