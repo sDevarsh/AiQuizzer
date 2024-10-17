@@ -1,4 +1,3 @@
-Here’s the correct markdown format for your `README.md` file. You can save this as `README.md` in your project directory.
 
 # AI Quizzer API
 
