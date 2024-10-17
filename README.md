@@ -14,11 +14,6 @@ Upon submitting their responses, users receive an EMAIL with personalized sugges
 
 Used JWT tokens for authentication.
 
-Swagger for Documentation and can be accessed by http://3.111.55.176/ 
-
-To use API directly use http://3.111.55.176/api/v1/  
-
-
 ## Prerequisites
 Ensure you have the following installed:
 - [Node.js](https://nodejs.org/) v14.x or above
@@ -28,9 +23,6 @@ Ensure you have the following installed:
 
 
 
-
-## Live on AWS Directly view it over -
-    http://3.111.55.176/
 
 ## Installation
 
@@ -75,10 +67,6 @@ npm start
 ## API Documentation
 
 The API documentation is available via Swagger UI. Once the server is running, you can access the documentation at the root path /.
-
-    Swagger UI: This interactive UI allows you to explore and test all available endpoints.
-    Visit: 
-    http://3.111.55.176/
 
 Swagger UI is automatically generated based on the OpenAPI specification defined in the project.
 ## API Endpoints
